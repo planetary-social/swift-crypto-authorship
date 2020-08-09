@@ -2,4 +2,16 @@
 
 import PackageDescription
 
-let package = Package(name: "swift-crypto-authorship")
+let package = Package(
+    name: "swift-crypto-authorship",
+    products: [
+        .library(
+            name: "Identify",
+            targets: ["Identify"]),
+    ],
+    targets: [
+        .target(
+            name: "Identify",
+            dependencies: []),
+    ]
+)
