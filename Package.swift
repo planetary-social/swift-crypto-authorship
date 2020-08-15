@@ -18,6 +18,10 @@ let package = Package(
             name: "EllipticCurveIdentification",
             targets: ["EllipticCurveIdentification"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-crypto", .exact("1.0.2")),
+        .package(url: "https://github.com/apple/swift-log", .upToNextMajor(from: "1.0.0")),
+    ],
     targets: [
         .target(
             name: "Identify",
