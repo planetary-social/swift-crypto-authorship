@@ -1,8 +1,15 @@
 import Logging
 import Crypto
 
-/// - TODO: Introduction.
-/// - TODO: Bibliography and references.
+/// CryptoKit's implementation of 25519 curves is a solid cryptographic identity.
+///
+/// - Note: Decentralised uniqueness guarranties of Ed25519 signing keys are high, even in context of very large networks;
+/// - TODO: ^ References.
+///
+/// - Remark: Curve25519 already has `signature` compatible with `AuthenticityIdentifier`.
+///
+/// - TODO: Bibliography and other references.
+///
 
 public struct EllipticCurveIdentification {
 
