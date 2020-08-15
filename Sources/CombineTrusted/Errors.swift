@@ -1,5 +1,15 @@
 /// ...
 
+public enum AuthenticationError: Error, Equatable {
+    
+    /// ...
+    
+    case corruptedContentSignature
+    
+}
+
+/// ...
+
 public enum SigningError: Error {
     
     /// ...
