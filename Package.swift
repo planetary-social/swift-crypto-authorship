@@ -15,6 +15,9 @@ let package = Package(
             name: "Identify",
             targets: ["Identify"]),
         .library(
+            name: "IdentificationProps",
+            targets: ["IdentificationProps"]),
+        .library(
             name: "EllipticCurveIdentification",
             targets: ["EllipticCurveIdentification"]),
     ],
@@ -27,11 +30,23 @@ let package = Package(
             name: "Identify",
             dependencies: []),
         .target(
+            name: "IdentificationProps",
+            dependencies: [
+                "Identify",
+            ]),
+        .target(
             name: "EllipticCurveIdentification",
             dependencies: [
                 "Identify",
                 .product(name: "Crypto", package: "swift-crypto"),
                 .product(name: "Logging", package: "swift-log"),
+            ]),
+        .testTarget(
+            name: "EllipticCurveIdentificationTests",
+            dependencies: [
+                "Identify",
+                "IdentificationProps",
+                "EllipticCurveIdentification",
             ]),
     ]
 )
