@@ -30,4 +30,4 @@ public struct EllipticCurveIdentification {
     
 }
 
-
+internal var logger = EllipticCurveIdentification.logger
