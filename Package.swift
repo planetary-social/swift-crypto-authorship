@@ -8,10 +8,20 @@ let package = Package(
         .library(
             name: "Identify",
             targets: ["Identify"]),
+        .library(
+            name: "EllipticCurveIdentification",
+            targets: ["EllipticCurveIdentification"]),
     ],
     targets: [
         .target(
             name: "Identify",
             dependencies: []),
+        .target(
+            name: "EllipticCurveIdentification",
+            dependencies: [
+                "Identify",
+                .product(name: "Crypto", package: "swift-crypto"),
+                .product(name: "Logging", package: "swift-log"),
+            ]),
     ]
 )
