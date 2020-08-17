@@ -7,7 +7,7 @@ import Crypto
 
 final class Curve25519AuthenticityIdentifierTests: XCTestCase {
 
-    var props: UniversalProperties.EveryCryptographicIdentifier<EllipticCurveIdentification.PublicIdentiifer> {
+    var props: UniversalProperties.EveryCryptographicIdentifier<EllipticCurveIdentification.PublicIdentifier> {
         return .init(identifier: subjectPublicIdentifier, exactKeyByteCount: 32)
     }
     
@@ -15,7 +15,7 @@ final class Curve25519AuthenticityIdentifierTests: XCTestCase {
         return .init()
     }
 
-    var subjectPublicIdentifier: EllipticCurveIdentification.PublicIdentiifer {
+    var subjectPublicIdentifier: EllipticCurveIdentification.PublicIdentifier {
         return subjectIdentity.publicIdentifier
     }
         
