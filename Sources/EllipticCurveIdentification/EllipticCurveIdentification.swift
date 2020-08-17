@@ -26,7 +26,7 @@ public struct EllipticCurveIdentification {
     
     /// Shorthand to access identity's public representation type.
     
-    public typealias PublicIdentiifer = Identity.Identifier
+    public typealias PublicIdentifier = Identity.Identifier
     
 }
 
