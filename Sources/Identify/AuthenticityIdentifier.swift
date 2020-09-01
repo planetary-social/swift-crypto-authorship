@@ -10,7 +10,7 @@ import Foundation
 
 public protocol AuthenticityIdentifier: RawRepresentable
 where Self.RawValue == Data {
-    
+
     /// Test whether the signature was created by corresponding cryptographic identity, and for given content.
     ///
     /// The `AuthenticityIdentifier` always represents one and only `CryptoIdentity`,
@@ -25,8 +25,8 @@ where Self.RawValue == Data {
     ///
     /// - Returns: The logical outcome of verification, `true` when the signature is indeed authentic for given content.
     ///
-    
+
     func isAuthentic<S, C>(_ signature: S, of content: C) -> Bool
     where S: DataProtocol, C: DataProtocol
-    
+
 }

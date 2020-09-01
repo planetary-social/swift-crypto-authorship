@@ -13,9 +13,9 @@ import Foundation
 ///
 
 public struct AuthenticityProof {
-    
+
     /// The proof consists of a byte-string content proven to be authentic with the signature.
-    
+
     public let content, signature: Data
 
     /// Sign the content using author's cryptographic identity.
@@ -28,7 +28,7 @@ public struct AuthenticityProof {
     ///
     /// - Throws: An `Error` thrown by the underlying cryptographic implementation.
     ///
-    
+
     public init<A>(of content: Data, from author: A) throws
     where A: CryptoIdentity {
         self.content = content
@@ -49,14 +49,14 @@ public struct AuthenticityProof {
     /// - Returns: Nothing when either the `signature` is corrupted, or when the `publicIdentifier` does not
     /// represent the original author.
     ///
-    
+
     public init?<I>(of content: Data, verifying signature: Data, using publicIdentifier: I)
     where I: AuthenticityIdentifier {
         guard publicIdentifier.isAuthentic(signature, of: content) else {
             #warning("Add a trace log...")
             return nil
         }
-        
+
         self.content = content
         self.signature = signature
     }
@@ -74,7 +74,7 @@ public struct AuthenticityProof {
     ///
     /// - Returns: Nothing when either the `signature` is corrupted, or when someone else is the `author`.
     ///
-    
+
     public init?<A>(of content: Data, verifying signature: Data, from author: A)
     where A: CryptoIdentity {
         self.init(of: content, verifying: signature, using: author.publicIdentifier)

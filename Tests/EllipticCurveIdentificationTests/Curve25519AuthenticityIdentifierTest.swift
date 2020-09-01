@@ -10,7 +10,7 @@ final class Curve25519AuthenticityIdentifierTests: XCTestCase {
     var props: UniversalProperties.EveryCryptographicIdentifier<EllipticCurveIdentification.PublicIdentifier> {
         return .init(identifier: subjectPublicIdentifier, exactKeyByteCount: 32)
     }
-    
+
     var subjectIdentity: EllipticCurveIdentification.Identity {
         return .init()
     }
@@ -18,7 +18,7 @@ final class Curve25519AuthenticityIdentifierTests: XCTestCase {
     var subjectPublicIdentifier: EllipticCurveIdentification.PublicIdentifier {
         return subjectIdentity.publicIdentifier
     }
-        
+
     func testFixedLengthKeyConstraint() {
         XCTAssert(props.alwaysTheSameExactByteCount())
     }

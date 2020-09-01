@@ -10,13 +10,13 @@ import Foundation
 
 public protocol CryptoIdentity: RawRepresentable
 where Self.RawValue == Data {
-    
+
     /// Public identification method compatible with implemented type of identity.
 
     associatedtype Identifier: AuthenticityIdentifier
-        
+
     /// Identify this identity by their public authenticity identifier.
-    
+
     var publicIdentifier: Identifier { get }
 
     /// Generate unique cryptographic identity.
@@ -28,9 +28,9 @@ where Self.RawValue == Data {
     ///
     /// - TODO: Explain why the parameter-free init is important and necessary here.
     ///
-    
+
     init() throws
-    
+
     /// Unique signature can be calculated for any object conforming to `DataProtocol`.
     ///
     /// - Parameter content: The byte-string to be signed.
@@ -39,8 +39,8 @@ where Self.RawValue == Data {
     ///
     /// - Throws: An `Error` thrown by the underlying cryptographic implementation.
     ///
-    
+
     func signature<C>(for content: C) throws -> Data
     where C: DataProtocol
-    
+
 }

@@ -9,7 +9,7 @@ import Crypto
 extension Curve25519.Signing.PublicKey: AuthenticityIdentifier {
 
     public typealias RawValue = Data
-    
+
     public var rawValue: Data {
         return rawRepresentation
     }
@@ -17,15 +17,15 @@ extension Curve25519.Signing.PublicKey: AuthenticityIdentifier {
     public init?(rawValue: Data) {
         do {
             try self.init(rawRepresentation: rawValue)
-        } catch(let error) {
-            logger.warning("invalid raw data: \(error)")
+        } catch let error {
+            logger.warning("invalid raw public key data: \(error)")
             return nil
         }
     }
-    
+
     public func isAuthentic<S, C>(_ signature: S, of content: C) -> Bool
     where S: DataProtocol, C: DataProtocol {
         return self.isValidSignature(signature, for: content)
     }
-    
+
 }

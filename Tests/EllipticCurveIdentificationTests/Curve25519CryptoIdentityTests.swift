@@ -14,7 +14,7 @@ final class Curve25519CryptoIdentityTests: XCTestCase {
     var subjectIdentity: EllipticCurveIdentification.Identity {
         return .init()
     }
-        
+
     func testFixedLengthKeyConstraint() {
         XCTAssert(props.alwaysTheSameExactByteCount())
     }

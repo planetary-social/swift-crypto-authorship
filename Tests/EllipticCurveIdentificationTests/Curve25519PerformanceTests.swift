@@ -5,16 +5,14 @@ import Crypto
 @testable import IdentificationProps
 @testable import EllipticCurveIdentification
 
-/// ...
-
 final class Curve25519CryptoPerformanceTests: XCTestCase {
 
     typealias SubjectIdentity = EllipticCurveIdentification.Identity
-    
+
     func testSpeedOfCreatingIdentity() {
         let sampleSize = 10000
         let iterations = 1...sampleSize
-        
+
         measure {
             iterations.forEach { _ in
                 _ = SubjectIdentity()
@@ -26,29 +24,31 @@ final class Curve25519CryptoPerformanceTests: XCTestCase {
         let sampleSize = 10000
         let iterations = 1...sampleSize
         let identities = iterations.map { _ in return SubjectIdentity() }
-        
+
         measure {
-            identities.forEach {
-                identity in _ = identity.publicIdentifier
-            }
+            identities.forEach { _ = $0.publicIdentifier }
         }
     }
-    
+
     func testSpeedOfSigningInformation() {
         let samples = samplesForSigning
 
         measure {
             samples.forEach { (author, message) in
-                _ = try! author.signature(for: message)
+                _ = try? author.signature(for: message)
             }
         }
     }
-    
 
     func testSpeedOfVerifyingAuthorshipAuthenticity() {
-        let samples = samplesForSigning.map { (author, message) in
-            return (author, message, try! author.signature(for: message))
-        }
+        let samples =
+            samplesForSigning
+            .compactMap { (author, message) -> (SubjectIdentity, Data, Data)? in
+                guard let signature = try? author.signature(for: message) else { return nil }
+                return (author, message, signature)
+            }
+
+        XCTAssertEqual(samples.count, samplesForSigning.count)
 
         measure {
             samples.forEach { (author, message, signature) in
@@ -61,25 +61,26 @@ final class Curve25519CryptoPerformanceTests: XCTestCase {
     ///
     /// - Returns: A sequence of random curve25519 identities paired with an example content byte-string.
     ///
-    
+
     private var samplesForSigning: [(SubjectIdentity, Data)] {
         var sampleSize = 9000000 // 9 megabytes
         let avgMessageSize = 25000 // XXX: Is that correct?
         let authorsCount = sampleSize / 25000
         let identities = (1...authorsCount).map { _ in return SubjectIdentity() }
         var samples = [(SubjectIdentity, Data)]()
-        
+
         while sampleSize > 0 {
             let dev = avgMessageSize / 25
             let chunkSize = Int.random(in: (avgMessageSize-dev)...(avgMessageSize+dev))
-            let chunkBytes = (1...chunkSize).map { _ in return UInt8.random(in: UInt8.min...UInt8.max) }
+            let chunkBytes = (1...chunkSize).map { _ in
+                return UInt8.random(in: UInt8.min...UInt8.max)
+            }
 
             sampleSize -= chunkSize
-
             samples.append((identities.randomElement()!, Data(chunkBytes)))
         }
-        
+
         return samples
     }
-    
+
 }
