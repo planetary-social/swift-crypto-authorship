@@ -12,7 +12,7 @@ extension UniversalProperties {
     /// - conformant to `RawRepresentable`.
     ///
 
-    struct EveryCryptographicIdentifier<Implementation: RawRepresentable>
+    struct EveryCryptographicIdentifier<Implementation: RawRepresentable & Hashable>
     where Implementation.RawValue == Data {
 
         /// A cryptographic identifier to be tested against these properties.
@@ -37,6 +37,22 @@ extension UniversalProperties {
             return
                 Implementation(rawValue: identifier.rawValue.prefix(tamperedSize)) == nil &&
                 Implementation(rawValue: identifier.rawValue)?.rawValue == identifier.rawValue
+        }
+
+        /// ...
+
+        func correctlyConformsToEquatable(against otherIdentifier: Implementation) -> Bool {
+            return
+                identifier == identifier &&
+                identifier != otherIdentifier
+        }
+
+        /// ...
+
+        func correctlyConformsToHashable(against otherIdentifier: Implementation) -> Bool {
+            return
+                identifier.hashValue == identifier.hashValue &&
+                identifier.hashValue != otherIdentifier.hashValue
         }
 
     }

@@ -8,23 +8,27 @@ import Crypto
 final class Curve25519AuthenticityIdentifierTests: XCTestCase {
 
     var props: UniversalProperties.EveryCryptographicIdentifier<EllipticCurveIdentification.PublicIdentifier> {
-        return .init(identifier: subjectPublicIdentifier, exactKeyByteCount: 32)
+        return .init(identifier: arbitraryPublicIdentifier, exactKeyByteCount: 32)
     }
 
-    var subjectIdentity: EllipticCurveIdentification.Identity {
+    var arbitraryIdentity: EllipticCurveIdentification.Identity {
         return .init()
     }
 
-    var subjectPublicIdentifier: EllipticCurveIdentification.PublicIdentifier {
-        return subjectIdentity.publicIdentifier
+    var arbitraryPublicIdentifier: EllipticCurveIdentification.PublicIdentifier {
+        return arbitraryIdentity.publicIdentifier
     }
 
     func testFixedLengthKeyConstraint() {
         XCTAssert(props.alwaysTheSameExactByteCount())
     }
 
-    func testConformanceToRawRepresentable() {
+    func testRequiredProtocolConformances() {
+        let otherIdentifier = EllipticCurveIdentification.Identity().publicIdentifier
+
         XCTAssert(props.correctlyConformsToRawRepresentable())
+        XCTAssert(props.correctlyConformsToHashable(against: arbitraryPublicIdentifier))
+        XCTAssert(props.correctlyConformsToEquatable(against: arbitraryPublicIdentifier))
     }
 
 }
