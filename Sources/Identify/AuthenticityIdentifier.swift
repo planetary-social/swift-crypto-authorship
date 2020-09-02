@@ -8,7 +8,7 @@ import Foundation
 /// - TODO: Also mention why RawRepresentable?
 ///
 
-public protocol AuthenticityIdentifier: RawRepresentable
+public protocol AuthenticityIdentifier: RawRepresentable & Hashable
 where Self.RawValue == Data {
 
     /// Test whether the signature was created by corresponding cryptographic identity, and for given content.

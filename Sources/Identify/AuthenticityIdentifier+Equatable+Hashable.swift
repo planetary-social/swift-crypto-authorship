@@ -8,4 +8,10 @@ public extension AuthenticityIdentifier {
         return lhs.rawValue == rhs.rawValue
     }
 
+    /// The hash of an identifier is obtained from its raw value.
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(rawValue)
+    }
+
 }

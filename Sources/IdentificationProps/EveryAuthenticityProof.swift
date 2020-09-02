@@ -36,22 +36,26 @@ extension UniversalProperties {
         /// ...
 
         func validWithTheSameAuthorAndContent() -> Bool {
-            guard let signature = self.signature else { return false }
-            return AuthenticityProof(of: exampleContent, verifying: signature, from: author) != nil
+            return isAuthenticProof(of: exampleContent, from: author)
         }
 
         /// ...
 
         func invalidWithDifferentContent(anotherContent: Data) -> Bool {
-            guard let signature = self.signature else { return false }
-            return AuthenticityProof(of: anotherContent, verifying: signature, from: author) == nil
+            return !isAuthenticProof(of: anotherContent, from: author)
         }
 
         /// ...
 
         func invalidWithSomeoneElseThanAuthor(forger: SubjectIdentity) -> Bool {
+            return !isAuthenticProof(of: exampleContent, from: forger)
+        }
+
+        ///
+
+        private func isAuthenticProof(of content: Data, from author: SubjectIdentity) -> Bool {
             guard let signature = self.signature else { return false }
-            return AuthenticityProof(of: exampleContent, verifying: signature, from: forger) == nil
+            return AuthenticityProof(of: content, verifying: signature, from: author) != nil
         }
 
     }

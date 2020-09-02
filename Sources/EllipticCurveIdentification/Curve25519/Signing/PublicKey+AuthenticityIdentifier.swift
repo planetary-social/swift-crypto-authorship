@@ -6,7 +6,7 @@ import Crypto
 
 // MARK: Public Identification
 
-extension Curve25519.Signing.PublicKey: AuthenticityIdentifier & Hashable {
+extension Curve25519.Signing.PublicKey: AuthenticityIdentifier {
 
     public typealias RawValue = Data
 

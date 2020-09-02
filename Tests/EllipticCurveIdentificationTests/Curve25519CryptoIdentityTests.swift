@@ -25,4 +25,9 @@ final class Curve25519CryptoIdentityTests: XCTestCase {
         XCTAssert(props.correctlyConformsToEquatable(against: arbitraryIdentity))
     }
 
+    func testSameHashValueAsPublicIdentifier() {
+        let identity = arbitraryIdentity
+        XCTAssertEqual(identity.hashValue, identity.publicIdentifier.hashValue)
+    }
+
 }

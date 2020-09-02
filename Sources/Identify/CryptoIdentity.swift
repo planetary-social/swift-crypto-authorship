@@ -8,7 +8,7 @@ import Foundation
 /// - TODO: Explain the reasons behind requiring RawRepresentable scoped over Data.
 ///
 
-public protocol CryptoIdentity: RawRepresentable
+public protocol CryptoIdentity: RawRepresentable & Hashable
 where Self.RawValue == Data {
 
     /// Public identification method compatible with implemented type of identity.
