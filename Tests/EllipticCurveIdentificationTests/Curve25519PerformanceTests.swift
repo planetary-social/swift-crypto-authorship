@@ -48,8 +48,6 @@ final class Curve25519CryptoPerformanceTests: XCTestCase {
                 return (author, message, signature)
             }
 
-        XCTAssertEqual(samples.count, samplesForSigning.count)
-
         measure {
             samples.forEach { (author, message, signature) in
                 _ = author.publicIdentifier.isAuthentic(signature, of: message)
