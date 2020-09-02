@@ -2,58 +2,58 @@ import Foundation
 import Identify
 
 extension UniversalProperties {
-    
+
     /// - TODO: Documentation...
-    
+
     struct EveryAuthenticityProof<SubjectIdentity: CryptoIdentity> {
-        
+
         /// ...
-        
+
         let author: SubjectIdentity
 
         /// ...
-        
+
         let exampleContent: Data
 
         /// ...
-        
+
         private var proof: AuthenticityProof? {
             return try? AuthenticityProof(of: exampleContent, from: author)
         }
-        
+
         /// ...
-        
+
         private var signature: Data? {
             return proof?.signature
         }
-        
+
         /// ...
-        
+
         func generatesCorrectly() -> Bool {
             return proof != nil
         }
 
         /// ...
-        
+
         func validWithTheSameAuthorAndContent() -> Bool {
             guard let signature = self.signature else { return false }
             return AuthenticityProof(of: exampleContent, verifying: signature, from: author) != nil
         }
 
         /// ...
-        
+
         func invalidWithDifferentContent(anotherContent: Data) -> Bool {
             guard let signature = self.signature else { return false }
             return AuthenticityProof(of: anotherContent, verifying: signature, from: author) == nil
         }
 
         /// ...
-        
+
         func invalidWithSomeoneElseThanAuthor(forger: SubjectIdentity) -> Bool {
             guard let signature = self.signature else { return false }
             return AuthenticityProof(of: exampleContent, verifying: signature, from: forger) == nil
         }
 
     }
-    
+
 }
